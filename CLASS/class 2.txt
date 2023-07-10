@@ -1,0 +1,671 @@
+Day 2: 07/07/2023
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| amazon_product     |
+| batch14            |
+| batch15            |
+| batch17            |
+| blrdb              |
+| chnbatch2          |
+| demochennai        |
+| information_schema |
+| kgm                |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| workbench          |
+| world              |
++--------------------+
+15 rows in set (0.47 sec)
+
+mysql> use batch17;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_batch17 |
++-------------------+
+| student_det       |
++-------------------+
+1 row in set (0.17 sec)
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into student_det values(108,'Mithun',9,16,25,'2023-06-05'),(110,'Sailesh',99,100,100,'2023-06-04'),(123,'Prasanth',45,56,87,'2023-06-07');
+Query OK, 3 rows affected (0.22 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from student_det limit 2;
++--------+------+------+------+------+------------+
+| rollno | name | m1   | m2   | m3   | doj        |
++--------+------+------+------+------+------------+
+|    101 | Arun |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari |   80 |   88 |   89 | 2023-06-03 |
++--------+------+------+------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student_det limit 4;
++--------+---------+------+------+------+------------+
+| rollno | name    | m1   | m2   | m3   | doj        |
++--------+---------+------+------+------+------------+
+|    101 | Arun    |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari    |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem    |   54 |   12 |   40 | 2023-06-02 |
++--------+---------+------+------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student_det limit 4 offset 1;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student_det limit 2 offset 4;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
++--------+-----------+------+------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno,name,m1 from student_det where m1>40;
++--------+-----------+------+
+| rollno | name      | m1   |
++--------+-----------+------+
+|    101 | Arun      |   60 |
+|    102 | Hari      |   80 |
+|    107 | Prem      |   54 |
+|    109 | Rajasekar |   90 |
+|    110 | Sailesh   |   99 |
+|    123 | Prasanth  |   45 |
++--------+-----------+------+
+6 rows in set (0.03 sec)
+
+
+mysql> select rollno,name,m1 from student_det where m1<40;
++--------+---------+------+
+| rollno | name    | m1   |
++--------+---------+------+
+|    105 | krishna |   12 |
+|    108 | Mithun  |    9 |
++--------+---------+------+
+2 rows in set (0.00 sec)
+
+
+mysql> select rollno,name,m1 from student_det where m1<>60;
++--------+-----------+------+
+| rollno | name      | m1   |
++--------+-----------+------+
+|    102 | Hari      |   80 |
+|    105 | krishna   |   12 |
+|    107 | Prem      |   54 |
+|    109 | Rajasekar |   90 |
+|    108 | Mithun    |    9 |
+|    110 | Sailesh   |   99 |
+|    123 | Prasanth  |   45 |
++--------+-----------+------+
+7 rows in set (0.00 sec)
+
+
+
+mysql> select rollno,name,m1 from student_det where m1=60;
++--------+------+------+
+| rollno | name | m1   |
++--------+------+------+
+|    101 | Arun |   60 |
++--------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student_det where doj > '2023-06-03';
++--------+----------+------+------+------+------------+
+| rollno | name     | m1   | m2   | m3   | doj        |
++--------+----------+------+------+------+------------+
+|    108 | Mithun   |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh  |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth |   45 |   56 |   87 | 2023-06-07 |
++--------+----------+------+------+------+------------+
+3 rows in set (0.03 sec)
+
+mysql> select * from student_det where doj < '2023-06-03';
++--------+---------+------+------+------+------------+
+| rollno | name    | m1   | m2   | m3   | doj        |
++--------+---------+------+------+------+------------+
+|    101 | Arun    |   60 |   55 |   68 | 2023-06-02 |
+|    105 | krishna |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem    |   54 |   12 |   40 | 2023-06-02 |
++--------+---------+------+------+------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student_det where doj <> '2023-06-02';
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+6 rows in set (0.03 sec)
+
+
+mysql> select * from student_det where  m1>40 and m2>40 and m3>40;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student_det where  m1>40 and m2<40 and m3>40;
+Empty set (0.00 sec)
+
+
+
+mysql> select * from student_det where  m1>60 or m2>70 or m3>80;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student_det where not name = 'sailesh';
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from student_det where name in ('Ram','arun','hari','suresh','ramesh',
+'jack');
+
++--------+------+------+------+------+------------+
+| rollno | name | m1   | m2   | m3   | doj        |
++--------+------+------+------+------+------------+
+|    101 | Arun |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari |   80 |   88 |   89 | 2023-06-03 |
++--------+------+------+------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student_det where name in 
+('Ram','arun','hari','suresh','ramesh','jack');
+
++--------+------+------+------+------+------------+
+| rollno | name | m1   | m2   | m3   | doj        |
++--------+------+------+------+------+------------+
+|    101 | Arun |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari |   80 |   88 |   89 | 2023-06-03 |
++--------+------+------+------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select name,m1 from student_det where m1 in (80,85,88,90,92,98,100);
++-----------+------+
+| name      | m1   |
++-----------+------+
+| Hari      |   80 |
+| Rajasekar |   90 |
++-----------+------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> select name,m1 from student_det where doj in 
+('2023-06-05','2023-06-10','2023-06-02','2023-05-30');
++--------+------+
+| name   | m1   |
++--------+------+
+| Arun   |   60 |
+| Prem   |   54 |
+| Mithun |    9 |
++--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student_det where name not in ('Ram','arun','hari','suresh','ramesh','jack');
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select name,m1 from student_det where not  doj in ('2023-06-05','2023-06-10','2023-06-02','2023-05-30');
++-----------+------+
+| name      | m1   |
++-----------+------+
+| Hari      |   80 |
+| krishna   |   12 |
+| Rajasekar |   90 |
+| Sailesh   |   99 |
+| Prasanth  |   45 |
++-----------+------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from student_det where rollno between 105 and 110;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
++--------+-----------+------+------+------+------------+
+5 rows in set (0.04 sec)
+
+mysql> select * from student_det where doj between '2023-06-03' and '2023-06-05';
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
++--------+-----------+------+------+------+------------+
+4 rows in set (0.03 sec)
+
+mysql> select * from student_det where doj not between '2023-06-03' and '2023-06-05';
++--------+----------+------+------+------+------------+
+| rollno | name     | m1   | m2   | m3   | doj        |
++--------+----------+------+------+------+------------+
+|    101 | Arun     |   60 |   55 |   68 | 2023-06-02 |
+|    105 | krishna  |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem     |   54 |   12 |   40 | 2023-06-02 |
+|    123 | Prasanth |   45 |   56 |   87 | 2023-06-07 |
++--------+----------+------+------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student_det order by name;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
++--------+-----------+------+------+------+------------+
+8 rows in set (0.12 sec)
+
+mysql> select * from student_det order by name desc;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
++--------+-----------+------+------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select rollno,name,m2 from student_det order by m2;
++--------+-----------+------+
+| rollno | name      | m2   |
++--------+-----------+------+
+|    105 | krishna   |   10 |
+|    107 | Prem      |   12 |
+|    108 | Mithun    |   16 |
+|    101 | Arun      |   55 |
+|    123 | Prasanth  |   56 |
+|    102 | Hari      |   88 |
+|    109 | Rajasekar |   94 |
+|    110 | Sailesh   |  100 |
++--------+-----------+------+
+8 rows in set (0.00 sec)
+
+mysql> select rollno,name,m2 from student_det order by m2 desc;
++--------+-----------+------+
+| rollno | name      | m2   |
++--------+-----------+------+
+|    110 | Sailesh   |  100 |
+|    109 | Rajasekar |   94 |
+|    102 | Hari      |   88 |
+|    123 | Prasanth  |   56 |
+|    101 | Arun      |   55 |
+|    108 | Mithun    |   16 |
+|    107 | Prem      |   12 |
+|    105 | krishna   |   10 |
++--------+-----------+------+
+8 rows in set (0.00 sec)
+
+mysql> select * from student_det order by doj;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from student_det order by doj desc;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
++--------+-----------+------+------+------+------------+
+8 rows in set (0.00 sec)
+
+
+mysql> select rollno,name,m1+m2+m3 as Total_Marks, (m1+m2+m3)/3 as Avg_Marks 
+from student_det;
+
++--------+-----------+-------------+-----------+
+| rollno | name      | Total_Marks | Avg_Marks |
++--------+-----------+-------------+-----------+
+|    101 | Arun      |         183 |   61.0000 |
+|    102 | Hari      |         257 |   85.6667 |
+|    105 | krishna   |          31 |   10.3333 |
+|    107 | Prem      |         106 |   35.3333 |
+|    109 | Rajasekar |         280 |   93.3333 |
+|    108 | Mithun    |          50 |   16.6667 |
+|    110 | Sailesh   |         299 |   99.6667 |
+|    123 | Prasanth  |         188 |   62.6667 |
++--------+-----------+-------------+-----------+
+8 rows in set (0.07 sec)
+
+mysql> select *, m1+m2+m3 as Total_Marks, (m1+m2+m3)/3 as Avg_Marks from student_det;
++--------+-----------+------+------+------+------------+-------------+-----------+
+| rollno | name      | m1   | m2   | m3   | doj        | Total_Marks | Avg_Marks |
++--------+-----------+------+------+------+------------+-------------+-----------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |         183 |   61.0000 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |         257 |   85.6667 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |          31 |   10.3333 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |         106 |   35.3333 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |         280 |   93.3333 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |          50 |   16.6667 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |         299 |   99.6667 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |         188 |   62.6667 |
++--------+-----------+------+------+------+------------+-------------+-----------+
+8 rows in set (0.00 sec)
+
+
+mysql> create table Product_det(pid int,pname varchar(24),brand varchar(25),No_Qty int,
+ price double(10,2));
+
+Query OK, 0 rows affected, 1 warning (2.17 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_batch17 |
++-------------------+
+| product_det       |
+| student_det       |
++-------------------+
+2 rows in set (0.15 sec)
+
+mysql> desc product_det;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| pid    | int          | YES  |     | NULL    |       |
+| pname  | varchar(24)  | YES  |     | NULL    |       |
+| brand  | varchar(25)  | YES  |     | NULL    |       |
+| No_Qty | int          | YES  |     | NULL    |       |
+| price  | double(10,2) | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> insert into product_det values(10,'iphone14','Apple',5,65999.99);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into product_det values(11,'iphone13','Apple',8,70999.99),
+(08,'SamsungS23','Samsung',20,25890.50),
+(13,'Samsungs01','Samsung',12,18000.00),
+(06,'NokiaG21','Nokia',40,19266.60);
+Query OK, 4 rows affected (0.07 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into product_det values(15,'Googlepix','Google',5,60999.99),
+(22,'OnePlus7T','Oneplus',50,35990.50),
+(113,'Freedom','Central',8,240.00),
+(06,'Nokia1100','Nokia',6,2500.00);
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from product_det;
++------+------------+---------+--------+----------+
+| pid  | pname      | brand   | No_Qty | price    |
++------+------------+---------+--------+----------+
+|   10 | iphone14   | Apple   |      5 | 65999.99 |
+|   11 | iphone13   | Apple   |      8 | 70999.99 |
+|    8 | SamsungS23 | Samsung |     20 | 25890.50 |
+|   13 | Samsungs01 | Samsung |     12 | 18000.00 |
+|    6 | NokiaG21   | Nokia   |     40 | 19266.60 |
+|   15 | Googlepix  | Google  |      5 | 60999.99 |
+|   22 | OnePlus7T  | Oneplus |     50 | 35990.50 |
+|  113 | Freedom    | Central |      8 |   240.00 |
+|    6 | Nokia1100  | Nokia   |      6 |  2500.00 |
++------+------------+---------+--------+----------+
+9 rows in set (0.00 sec)
+
+mysql> select * from product_det where brand like 'A%';
++------+----------+-------+--------+----------+
+| pid  | pname    | brand | No_Qty | price    |
++------+----------+-------+--------+----------+
+|   10 | iphone14 | Apple |      5 | 65999.99 |
+|   11 | iphone13 | Apple |      8 | 70999.99 |
++------+----------+-------+--------+----------+
+2 rows in set (0.05 sec)
+
+mysql> select * from product_det where brand like '%g';
++------+------------+---------+--------+----------+
+| pid  | pname      | brand   | No_Qty | price    |
++------+------------+---------+--------+----------+
+|    8 | SamsungS23 | Samsung |     20 | 25890.50 |
+|   13 | Samsungs01 | Samsung |     12 | 18000.00 |
++------+------------+---------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from product_det where pname like '%3';
++------+------------+---------+--------+----------+
+| pid  | pname      | brand   | No_Qty | price    |
++------+------------+---------+--------+----------+
+|   11 | iphone13   | Apple   |      8 | 70999.99 |
+|    8 | SamsungS23 | Samsung |     20 | 25890.50 |
++------+------------+---------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from product_det where brand like '_okia';
++------+-----------+-------+--------+----------+
+| pid  | pname     | brand | No_Qty | price    |
++------+-----------+-------+--------+----------+
+|    6 | NokiaG21  | Nokia |     40 | 19266.60 |
+|    6 | Nokia1100 | Nokia |      6 |  2500.00 |
++------+-----------+-------+--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from product_det where brand like 'A_ _ _e';
++------+----------+-------+--------+----------+
+| pid  | pname    | brand | No_Qty | price    |
++------+----------+-------+--------+----------+
+|   10 | iphone14 | Apple |      5 | 65999.99 |
+|   11 | iphone13 | Apple |      8 | 70999.99 |
++------+----------+-------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from product_det where brand like '_okia' order by price;
++------+-----------+-------+--------+----------+
+| pid  | pname     | brand | No_Qty | price    |
++------+-----------+-------+--------+----------+
+|    6 | Nokia1100 | Nokia |      6 |  2500.00 |
+|    6 | NokiaG21  | Nokia |     40 | 19266.60 |
++------+-----------+-------+--------+----------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> select distinct brand from product_det;
++---------+
+| brand   |
++---------+
+| Apple   |
+| Samsung |
+| Nokia   |
+| Google  |
+| Oneplus |
+| Central |
++---------+
+6 rows in set (0.04 sec)
+
+mysql> select distinct pname from product_det;
++------------+
+| pname      |
++------------+
+| iphone14   |
+| iphone13   |
+| SamsungS23 |
+| Samsungs01 |
+| NokiaG21   |
+| Googlepix  |
+| OnePlus7T  |
+| Freedom    |
+| Nokia1100  |
++------------+
+9 rows in set (0.00 sec)
+
+mysql> select distinct price from product_det;
++----------+
+| price    |
++----------+
+| 65999.99 |
+| 70999.99 |
+| 25890.50 |
+| 18000.00 |
+| 19266.60 |
+| 60999.99 |
+| 35990.50 |
+|   240.00 |
+|  2500.00 |
++----------+
+9 rows in set (0.00 sec)
+
+
+mysql> select count(pname) as No_of_Product from product_det;
++---------------+
+| No_of_Product |
++---------------+
+|             9 |
++---------------+
+1 row in set (0.05 sec)
+
+
+
+mysql> select sum(price) as Sum_of_ALL_Product from product_det;
++--------------------+
+| Sum_of_ALL_Product |
++--------------------+
+|          299887.57 |
++--------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select avg(price) as Avg_of_ALL_Product from product_det;
++--------------------+
+| Avg_of_ALL_Product |
++--------------------+
+|       33320.841111 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select max(price) as MAx_of_ALL_Product from product_det;
++--------------------+
+| MAx_of_ALL_Product |
++--------------------+
+|           70999.99 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select min(price) as Minimum_of_ALL_Product from product_det;
++------------------------+
+| Minimum_of_ALL_Product |
++------------------------+
+|                 240.00 |
++------------------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+

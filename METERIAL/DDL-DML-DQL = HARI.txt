@@ -1,0 +1,734 @@
+DDL - Data Definition Language
+* create
+* Drop
+* truncate
+* alter -add
+        -rename (only change table name)
+        -change (without using modify we change field name and data type)
+        -drop (delete column and delete entire table)
+
+
+
+show databases;                                      -  to show
++--------------------+
+| Database           |
++--------------------+
+| batch17            |
+| batch18            |
+| batch201           |
+| information_schema |
+| mysql              |
+| payer_01           |
+| performance_schema |
+| player_07          |
+| product            |
+| sakila             |
+| studentlist        |
+| sys                |
+| world              |
++--------------------+
+
+
+use product;                                          -  to get inside a database
+Database changed
+
+ 
+create table std_list(sno int,name char(10),m1 int,m2 int,age int,doj date);   - to create table
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| sno   | int      | YES  |     | NULL    |       |
+| name  | char(10) | YES  |     | NULL    |       |
+| m1    | int      | YES  |     | NULL    |       |
+| m2    | int      | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
+| doj   | date     | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+
+
+ alter table std_list add email varchar(20);           - to add field and data type
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int         | YES  |     | NULL    |       |
+| name  | char(10)    | YES  |     | NULL    |       |
+| m1    | int         | YES  |     | NULL    |       |
+| m2    | int         | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| doj   | date        | YES  |     | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+
+alter table std_list change email mail varchar(20);      - to change field
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sno   | int         | YES  |     | NULL    |       |
+| name  | char(10)    | YES  |     | NULL    |       |
+| m1    | int         | YES  |     | NULL    |       |
+| m2    | int         | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| doj   | date        | YES  |     | NULL    |       |
+| mail  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+ alter table std_list change mail mail char(20);          - to change data type
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| sno   | int      | YES  |     | NULL    |       |
+| name  | char(10) | YES  |     | NULL    |       |
+| m1    | int      | YES  |     | NULL    |       |
+| m2    | int      | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
+| doj   | date     | YES  |     | NULL    |       |
+| mail  | char(20) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+
+alter table std_list rename std_lt;                       - to change table name
++-------------------+
+| Tables_in_product |
++-------------------+
+| std_lt            |
++-------------------+
+
+ alter table std_lt drop column mail;                     - to delete one column
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| sno   | int      | YES  |     | NULL    |       |
+| name  | char(10) | YES  |     | NULL    |       |
+| m1    | int      | YES  |     | NULL    |       |
+| m2    | int      | YES  |     | NULL    |       |
+| age   | int      | YES  |     | NULL    |       |
+| doj   | date     | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+
+
+truncate table table_name;                                - to delete entire table and data
+
+
+DMP - Data Manipulation Language
+ - Insert
+ - Select
+ - Update
+ - Delete
+
+insert into std_lt(rollno,name,m1,m2,m3,doj)values(101,'Arun',60,55,68,'2023-06-02'),(102,'Hari',80,88,89,'2023-06-03'); - to add values for table
+(105,'krishna',12,10,09,'2023-06-01'),(107,'Prem',54,12,40,'2023-06-02'),(109,'Rajasekar',90,94,96,'2023-06-03');
++------+-----------+------+------+------+------------+
+| sno  | name      | m1   | m2   | age  | doj        |
++------+-----------+------+------+------+------------+
+|  101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|  102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|  101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|  102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|  105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|  107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|  109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
++------+-----------+------+------+------+------------+
+
+ select name,doj from std_lt;                               - to show selected value of table
++-----------+------------+ 
+| name      | doj        |
++-----------+------------+
+| Arun      | 2023-06-02 |
+| Hari      | 2023-06-03 |
+| Arun      | 2023-06-02 |
+| Hari      | 2023-06-03 |
+| krishna   | 2023-06-01 |
+| Prem      | 2023-06-02 |
+| Rajasekar | 2023-06-03 |
++-----------+------------+
+
+
+ select * from std_lt;                                      - using * to show entire details of table
++------+-----------+------+------+------+------------+
+| sno  | name      | m1   | m2   | age  | doj        |
++------+-----------+------+------+------+------------+
+|  101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|  102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|  101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|  102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|  105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|  107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|  109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
++------+-----------+------+------+------+------------+
+
+
+select * from std_lt where sno = 105;                       - to open specify details
++------+---------+------+------+------+------------+
+| sno  | name    | m1   | m2   | age  | doj        |
++------+---------+------+------+------+------------+
+|  105 | krishna |   12 |   10 |    9 | 2023-06-01 |
++------+---------+------+------+------+------------+
+
+
+mysql> select * from student_det where doj = '2023-06-01';  - for doj
++--------+---------+------+------+------+------------+
+| rollno | name    | m1   | m2   | m3   | doj        |
++--------+---------+------+------+------+------------+
+|    105 | krishna |   12 |   10 |    9 | 2023-06-01 |
++--------+---------+------+------+------+------------
+
+
+ update std_lt set name='Arunkumar' where sno = 101;       - to update table details
++------+-----------+------+------+------+------------+
+| sno  | name      | m1   | m2   | age  | doj        |
++------+-----------+------+------+------+------------+
+|  101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|  102 | Hari      |   82 |   91 |   89 | 2023-06-03 |
+|  101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|  102 | Hari      |   82 |   91 |   89 | 2023-06-03 |
+|  105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|  107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|  109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
++------+-----------+------+------+------+------------+
+
+update std_lt set doj = '2023-06-05' where name = 'hari';   - same as above
++------+-----------+------+------+------+------------+
+| sno  | name      | m1   | m2   | age  | doj        |
++------+-----------+------+------+------+------------+
+|  101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|  102 | Hari      |   82 |   91 |   89 | 2023-06-05 |
+|  101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|  102 | Hari      |   82 |   91 |   89 | 2023-06-05 |
+|  105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|  107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|  109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
++------+-----------+------+------+------+------------+
+
+ delete from std_lt where name='hari';                      - to delete single row
++------+-----------+------+------+------+------------+
+| sno  | name      | m1   | m2   | age  | doj        |
++------+-----------+------+------+------+------------+
+|  101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|  101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|  105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|  107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|  109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
++------+-----------+------+------+------+------------+
+
+ delete from std_lt;                                        - to delete data but table is not deleted
+Query OK, 5 rows affected (0.03 sec)
+ select * from std_lt;                                      - after delete data table shows empty set	
+Empty set
+
+
+
+
+
+DQL Data Query Language
+
+1 comparison
+2 like operator
+3 logical operator
+4 operator
+5 between and in
+6 orderby and distinct
+7 aggregate function
+8 group by and having clause
+
+-limit (to select range)
+
+select * from student_det limit 2;
++--------+------+------+------+------+------------+
+| rollno | name | m1   | m2   | m3   | doj        |
++--------+------+------+------+------+------------+
+|    101 | Arun |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari |   80 |   88 |   89 | 2023-06-03 |
++--------+------+------+------+------+------------+
+
+
+-limit offset (range with specific area)
+
+ select * from student_det limit 4 offset 1;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+
+-alias (to create temporary name to find total and average)(using *,)
+
+ select *, m1+m2+m3 as Total_Marks, (m1+m2+m3)/3 as Avg_Marks from student_det;
++--------+-----------+------+------+------+------------+-------------+-----------+
+| rollno | name      | m1   | m2   | m3   | doj        | Total_Marks | Avg_Marks |
++--------+-----------+------+------+------+------------+-------------+-----------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |         183 |   61.0000 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |         257 |   85.6667 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |          31 |   10.3333 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |         106 |   35.3333 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |         280 |   93.3333 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |          50 |   16.6667 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |         299 |   99.6667 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |         188 |   62.6667 |
++--------+-----------+------+------+------+------------+-------------+-----------+
+
+1) comparison:
+ =
+ <>
+ <
+ <=
+ >
+ >=
+
+ select rollno,name,m1 from student_det where m1>40;
++--------+-----------+------+
+| rollno | name      | m1   |
++--------+-----------+------+
+|    101 | Arun      |   60 |
+|    102 | Hari      |   80 |
+|    107 | Prem      |   54 |
+|    109 | Rajasekar |   90 |
+|    110 | Sailesh   |   99 |
+|    123 | Prasanth  |   45 |
++--------+-----------+------+
+select rollno,name,m1 from student_det where m1<>60;
++--------+-----------+------+
+| rollno | name      | m1   |
++--------+-----------+------+
+|    102 | Hari      |   80 |
+|    105 | krishna   |   12 |
+|    107 | Prem      |   54 |
+|    109 | Rajasekar |   90 |
+|    108 | Mithun    |    9 |
+|    110 | Sailesh   |   99 |
+|    123 | Prasanth  |   45 |
++--------+-----------+------+
+select * from student_det where doj > '2023-06-03';
++--------+----------+------+------+------+------------+
+| rollno | name     | m1   | m2   | m3   | doj        |
++--------+----------+------+------+------+------------+
+|    108 | Mithun   |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh  |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth |   45 |   56 |   87 | 2023-06-07 |
++--------+----------+------+------+------+------------+
+
+
+
+2) like operator:
+1. % - percentage (A% start with A will be shown),(%A end with A will be shown)
+2. _ - underscore (A__E start with A and E will be shown),(__ia end with a will be shown)
+
+select * from product_det where brand like 'A%';
++------+----------+-------+--------+----------+
+| pid  | pname    | brand | No_Qty | price    |
++------+----------+-------+--------+----------+
+|   10 | iphone14 | Apple |      5 | 65999.99 |
+|   11 | iphone13 | Apple |      8 | 70999.99 |
++------+----------+-------+--------+----------+
+	
+select * from product_det where brand like '_okia';
++------+-----------+-------+--------+----------+
+| pid  | pname     | brand | No_Qty | price    |
++------+-----------+-------+--------+----------+
+|    6 | NokiaG21  | Nokia |     40 | 19266.60 |
+|    6 | Nokia1100 | Nokia |      6 |  2500.00 |
++------+-----------+-------+--------+----------+
+
+select * from product_det where brand like 'A_ _ _e';
++------+----------+-------+--------+----------+
+| pid  | pname    | brand | No_Qty | price    |
++------+----------+-------+--------+----------+
+|   10 | iphone14 | Apple |      5 | 65999.99 |
+|   11 | iphone13 | Apple |      8 | 70999.99 |
++------+----------+-------+--------+----------+
+
+
+3) logical operator:
+1 AND
+2 OR
+3 NOT
+
+select * from student_det where  m1>40 and m2<40 and m3>40;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+
+select * from student_det where  m1>40 and m2>40 and m3>40;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+
+select * from student_det where not name = 'sailesh';
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+
+
+4 between and in
+between - (set of range will be shown)
+in - (given details will be shown)
+
+select * from student_det where rollno between 105 and 110;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
++--------+-----------+------+------+------+------------+
+
+select * from student_det where doj between '2023-06-03' and '2023-06-05';
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
++--------+-----------+------+------+------+------------+
+
+select * from student_det where doj not between '2023-06-03' and '2023-06-05';
++--------+----------+------+------+------+------------+
+| rollno | name     | m1   | m2   | m3   | doj        |
++--------+----------+------+------+------+------------+
+|    101 | Arun     |   60 |   55 |   68 | 2023-06-02 |
+|    105 | krishna  |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem     |   54 |   12 |   40 | 2023-06-02 |
+|    123 | Prasanth |   45 |   56 |   87 | 2023-06-07 |
++--------+----------+------+------+------+------------+
+
+select name,m1 from student_det where m1 in (80,85,88,90,92,98,100);
++-----------+------+
+| name      | m1   |
++-----------+------+
+| Hari      |   80 |
+| Rajasekar |   90 |
++-----------+------+
+
+select * from student_det where name not in ('Ram','arun','hari','suresh','ramesh','jack');
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
++--------+-----------+------+------+------+------------+
+
+
+6 orderby and distinct
+orderby - asc & desc
+distinct - repetation consider as single value eg: brand
+
+ select rollno,name,m2 from student_det order by m2;
++--------+-----------+------+
+| rollno | name      | m2   |
++--------+-----------+------+
+|    105 | krishna   |   10 |
+|    107 | Prem      |   12 |
+|    108 | Mithun    |   16 |
+|    101 | Arun      |   55 |
+|    123 | Prasanth  |   56 |
+|    102 | Hari      |   88 |
+|    109 | Rajasekar |   94 |
+|    110 | Sailesh   |  100 |
++--------+-----------+------+
+
+ select rollno,name,m2 from student_det order by m2 desc;
++--------+-----------+------+
+| rollno | name      | m2   |
++--------+-----------+------+
+|    110 | Sailesh   |  100 |
+|    109 | Rajasekar |   94 |
+|    102 | Hari      |   88 |
+|    123 | Prasanth  |   56 |
+|    101 | Arun      |   55 |
+|    108 | Mithun    |   16 |
+|    107 | Prem      |   12 |
+|    105 | krishna   |   10 |
++--------+-----------+------+
+
+select *from student_det order by doj desc;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    123 | Prasanth  |   45 |   56 |   87 | 2023-06-07 |
+|    108 | Mithun    |    9 |   16 |   25 | 2023-06-05 |
+|    110 | Sailesh   |   99 |  100 |  100 | 2023-06-04 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
++--------+-----------+------+------+------+------------+
+
+select distinct brand from product_det;
++---------+
+| brand   |
++---------+
+| Apple   |
+| Samsung |
+| Nokia   |
+| Google  |
+| Oneplus |
+| Central |
++---------+
+select distinct pname from product_det;
++------------+
+| pname      |
++------------+
+| iphone14   |
+| iphone13   |
+| SamsungS23 |
+| Samsungs01 |
+| NokiaG21   |
+| Googlepix  |
+| OnePlus7T  |
+| Freedom    |
+| Nokia1100  |
++------------+
+ 
+
+7 aggregate function
+ combining multipe values into a single value is called aggregate.
+
+- count
+- sum
+- average
+- max 
+- min
+
+select count(pname) as No_of_Product from product_det;
++---------------+
+| No_of_Product |
++---------------+
+|             9 |
++---------------+
+
+ select sum(price) as Sum_of_ALL_Product from product_det;
++--------------------+
+| Sum_of_ALL_Product |
++--------------------+
+|          299887.57 |
++--------------------+
+
+ select avg(price) as Avg_of_ALL_Product from product_det;
++--------------------+
+| Avg_of_ALL_Product |
++--------------------+
+|       33320.841111 |
++--------------------+
+
+ select max(price) as MAx_of_ALL_Product from product_det;
++--------------------+
+| MAx_of_ALL_Product |
++--------------------+
+|           70999.99 |
++--------------------+
+
+ select min(price) as Minimum_of_ALL_Product from product_det;
++------------------------+
+| Minimum_of_ALL_Product |
++------------------------+
+|                 240.00 |
++------------------------+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

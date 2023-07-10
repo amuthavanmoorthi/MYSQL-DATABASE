@@ -1,0 +1,421 @@
+Date:06/07/2023
+---------------------------------
+1. Show  Database.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| amazon_product     |
+| batch14            |
+| batch15            |
+| blrdb              |
+| chnbatch2          |
+| demochennai        |
+| information_schema |
+| kgm                |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| workbench          |
+| world              |
++--------------------+
+14 rows in set (1.94 sec)
+
+2. To create a new Database
+
+mysql> create database batch17;
+Query OK, 1 row affected (0.80 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| amazon_product     |
+| batch14            |
+| batch15            |
+| batch17            |
+| blrdb              |
+| chnbatch2          |
+| demochennai        |
+| information_schema |
+| kgm                |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| workbench          |
+| world              |
++--------------------+
+15 rows in set (0.05 sec)
+
+mysql> use batch17;
+Database changed
+
+mysql> create table student_det(rollno int,name char(25),m1 int,m2 int,m3 int,doj date);
+Query OK, 0 rows affected (1.05 sec)
+
+
+mysql> desc student_det;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| rollno | int      | YES  |     | NULL    |       |
+| name   | char(25) | YES  |     | NULL    |       |
+| m1     | int      | YES  |     | NULL    |       |
+| m2     | int      | YES  |     | NULL    |       |
+| m3     | int      | YES  |     | NULL    |       |
+| doj    | date     | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+6 rows in set (6.35 sec)
+
+
+mysql> alter table student_det add email varchar(30);
+Query OK, 0 rows affected (0.84 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_det;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | char(25)    | YES  |     | NULL    |       |
+| m1     | int         | YES  |     | NULL    |       |
+| m2     | int         | YES  |     | NULL    |       |
+| m3     | int         | YES  |     | NULL    |       |
+| doj    | date        | YES  |     | NULL    |       |
+| email  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table student_det add age int after name;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_det;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | char(25)    | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| m1     | int         | YES  |     | NULL    |       |
+| m2     | int         | YES  |     | NULL    |       |
+| m3     | int         | YES  |     | NULL    |       |
+| doj    | date        | YES  |     | NULL    |       |
+| email  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+
+mysql> alter table student_det add sno int first;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_det;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | YES  |     | NULL    |       |
+| rollno | int         | YES  |     | NULL    |       |
+| name   | char(25)    | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| m1     | int         | YES  |     | NULL    |       |
+| m2     | int         | YES  |     | NULL    |       |
+| m3     | int         | YES  |     | NULL    |       |
+| doj    | date        | YES  |     | NULL    |       |
+| email  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+
+mysql> alter table student_det change email mail char(30);
+Query OK, 0 rows affected (0.86 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_det;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| sno    | int      | YES  |     | NULL    |       |
+| rollno | int      | YES  |     | NULL    |       |
+| name   | char(25) | YES  |     | NULL    |       |
+| age    | int      | YES  |     | NULL    |       |
+| m1     | int      | YES  |     | NULL    |       |
+| m2     | int      | YES  |     | NULL    |       |
+| m3     | int      | YES  |     | NULL    |       |
+| doj    | date     | YES  |     | NULL    |       |
+| mail   | char(30) | YES  |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table student_det modify name varchar(26);
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student_det;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | YES  |     | NULL    |       |
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(26) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| m1     | int         | YES  |     | NULL    |       |
+| m2     | int         | YES  |     | NULL    |       |
+| m3     | int         | YES  |     | NULL    |       |
+| doj    | date        | YES  |     | NULL    |       |
+| email  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table student_det rename std_det;
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> desc student_det;
+ERROR 1146 (42S02): Table 'batch17.student_det' doesn't exist
+
+
+mysql> desc std_det;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sno    | int         | YES  |     | NULL    |       |
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(26) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| m1     | int         | YES  |     | NULL    |       |
+| m2     | int         | YES  |     | NULL    |       |
+| m3     | int         | YES  |     | NULL    |       |
+| doj    | date        | YES  |     | NULL    |       |
+| email  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+
+mysql> alter table std_det drop column sno;
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc std_det;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(26) | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
+| m1     | int         | YES  |     | NULL    |       |
+| m2     | int         | YES  |     | NULL    |       |
+| m3     | int         | YES  |     | NULL    |       |
+| doj    | date        | YES  |     | NULL    |       |
+| email  | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+mysql> show tables;
++-------------------+
+| Tables_in_batch17 |
++-------------------+
+| std_det           |
++-------------------+
+1 row in set (0.29 sec)
+
+mysql> drop table std_det;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+
+mysql> drop database batch17;
+Query OK, 0 rows affected (0.44 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| amazon_product     |
+| batch14            |
+| batch15            |
+| blrdb              |
+| chnbatch2          |
+| demochennai        |
+| information_schema |
+| kgm                |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| workbench          |
+| world              |
++--------------------+
+14 rows in set (0.00 sec)
+
+
+mysql> insert into student_det(rollno,name,m1,m2,m3,doj)values
+(101,'Arun',60,55,68,'2023-06-02');
+Query OK, 1 row affected (0.21 sec)
+
+mysql> insert into student_det values(102,'Hari',80,88,89,'2023-06-03');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student_det values(105,'krishna',12,10,09,'2023-06-01'),
+(107,'Prem',54,12,40,'2023-06-02'),
+(109,'Rajasekar',90,94,96,'2023-06-03');
+
+Query OK, 3 rows affected (0.06 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   60 |   55 |   68 | 2023-06-02 |
+|    102 | Hari      |   80 |   88 |   89 | 2023-06-03 |
+|    105 | krishna   |   12 |   10 |    9 | 2023-06-01 |
+|    107 | Prem      |   54 |   12 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   90 |   94 |   96 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+5 rows in set (0.03 sec)
+
+mysql> select name,doj from student_det;
++-----------+------------+
+| name      | doj        |
++-----------+------------+
+| Arun      | 2023-06-02 |
+| Hari      | 2023-06-03 |
+| krishna   | 2023-06-01 |
+| Prem      | 2023-06-02 |
+| Rajasekar | 2023-06-03 |
+| Hari      | 2023-06-03 |
++-----------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select * from student_det where rollno = 105;
++--------+---------+------+------+------+------------+
+| rollno | name    | m1   | m2   | m3   | doj        |
++--------+---------+------+------+------+------------+
+|    105 | krishna |   12 |   10 |    9 | 2023-06-01 |
++--------+---------+------+------+------+------------+
+1 row in set (0.03 sec)
+
+mysql> select * from student_det where rollno = 102;
++--------+------+------+------+------+------------+
+| rollno | name | m1   | m2   | m3   | doj        |
++--------+------+------+------+------+------------+
+|    102 | Hari |   80 |   88 |   89 | 2023-06-03 |
+|    102 | Hari |   80 |   88 |   89 | 2023-06-03 |
++--------+------+------+------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student_det where name = 'krishna';
++--------+---------+------+------+------+------------+
+| rollno | name    | m1   | m2   | m3   | doj        |
++--------+---------+------+------+------+------------+
+|    105 | krishna |   12 |   10 |    9 | 2023-06-01 |
++--------+---------+------+------+------+------------+
+1 row in set (0.03 sec)
+
+mysql> select * from student_det where doj = '2023-06-01';
++--------+---------+------+------+------+------------+
+| rollno | name    | m1   | m2   | m3   | doj        |
++--------+---------+------+------+------+------------+
+|    105 | krishna |   12 |   10 |    9 | 2023-06-01 |
++--------+---------+------+------+------+------------+
+1 row in set (0.06 sec)
+
+mysql> update student_det set m1 = m1+2,m2=m2+3;
+Query OK, 6 rows affected (0.09 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arun      |   62 |   58 |   68 | 2023-06-02 |
+|    102 | Hari      |   82 |   91 |   89 | 2023-06-03 |
+|    105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|    107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
+|    102 | Hari      |   82 |   91 |   89 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> update student_det set name='Arunkumar' where rollno = 101;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|    102 | Hari      |   82 |   91 |   89 | 2023-06-03 |
+|    105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|    107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
+|    102 | Hari      |   82 |   91 |   89 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> update student_det set doj = '2023-06-05' where name = 'hari';
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|    102 | Hari      |   82 |   91 |   89 | 2023-06-05 |
+|    105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|    107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
+|    102 | Hari      |   82 |   91 |   89 | 2023-06-05 |
++--------+-----------+------+------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> delete from student_det where name='hari';
+Query OK, 2 rows affected (0.11 sec)
+
+mysql> select * from student_det;
++--------+-----------+------+------+------+------------+
+| rollno | name      | m1   | m2   | m3   | doj        |
++--------+-----------+------+------+------+------------+
+|    101 | Arunkumar |   62 |   58 |   68 | 2023-06-02 |
+|    105 | krishna   |   14 |   13 |    9 | 2023-06-01 |
+|    107 | Prem      |   56 |   15 |   40 | 2023-06-02 |
+|    109 | Rajasekar |   92 |   97 |   96 | 2023-06-03 |
++--------+-----------+------+------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from student_det;
+Query OK, 4 rows affected (0.04 sec)
+
+mysql> select * from student_det;
+Empty set (0.00 sec)
+
+mysql> truncate table student_det;
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> select * from student_det;
+Empty set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

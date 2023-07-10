@@ -1,0 +1,419 @@
+Day 3- 9/7/2023
+----------------------------------
+
+Group By
+--------------
+mysql> select * from product_det;
++------+------------+---------+--------+----------+
+| pid  | pname      | brand   | No_Qty | price    |
++------+------------+---------+--------+----------+
+|   10 | iphone14   | Apple   |      5 | 65999.99 |
+|   11 | iphone13   | Apple   |      8 | 70999.99 |
+|    8 | SamsungS23 | Samsung |     20 | 25890.50 |
+|   13 | Samsungs01 | Samsung |     12 | 18000.00 |
+|    6 | NokiaG21   | Nokia   |     40 | 19266.60 |
+|   15 | Googlepix  | Google  |      5 | 60999.99 |
+|   22 | OnePlus7T  | Oneplus |     50 | 35990.50 |
+|  113 | Freedom    | Central |      8 |   240.00 |
+|    6 | Nokia1100  | Nokia   |      6 |  2500.00 |
++------+------------+---------+--------+----------+
+9 rows in set (0.00 sec)
+
+
+
+mysql> select brand,sum(price) from product_det group by brand;
++---------+------------+
+| brand   | sum(price) |
++---------+------------+
+| Apple   |  136999.98 |
+| Samsung |   43890.50 |
+| Nokia   |   21766.60 |
+| Google  |   60999.99 |
+| Oneplus |   35990.50 |
+| Central |     240.00 |
++---------+------------+
+6 rows in set (0.04 sec)
+
+
+mysql> select brand,count(price) from product_det group by brand;
++---------+--------------+
+| brand   | count(price) |
++---------+--------------+
+| Apple   |            2 |
+| Samsung |            2 |
+| Nokia   |            2 |
+| Google  |            1 |
+| Oneplus |            1 |
+| Central |            1 |
++---------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select brand,max(price) from product_det group by brand;
++---------+------------+
+| brand   | max(price) |
++---------+------------+
+| Apple   |   70999.99 |
+| Samsung |   25890.50 |
+| Nokia   |   19266.60 |
+| Google  |   60999.99 |
+| Oneplus |   35990.50 |
+| Central |     240.00 |
++---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select brand,min(price) from product_det group by brand;
++---------+------------+
+| brand   | min(price) |
++---------+------------+
+| Apple   |   65999.99 |
+| Samsung |   18000.00 |
+| Nokia   |    2500.00 |
+| Google  |   60999.99 |
+| Oneplus |   35990.50 |
+| Central |     240.00 |
++---------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select brand,avg(price) from product_det group by brand;
++---------+--------------+
+| brand   | avg(price)   |
++---------+--------------+
+| Apple   | 68499.990000 |
+| Samsung | 21945.250000 |
+| Nokia   | 10883.300000 |
+| Google  | 60999.990000 |
+| Oneplus | 35990.500000 |
+| Central |   240.000000 |
++---------+--------------+
+6 rows in set (0.03 sec)
+
+mysql> select brand,avg(price) from product_det group by brand order by brand;
++---------+--------------+
+| brand   | avg(price)   |
++---------+--------------+
+| Apple   | 68499.990000 |
+| Central |   240.000000 |
+| Google  | 60999.990000 |
+| Nokia   | 10883.300000 |
+| Oneplus | 35990.500000 |
+| Samsung | 21945.250000 |
++---------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select brand,avg(price) from product_det group by brand order by avg(price);
++---------+--------------+
+| brand   | avg(price)   |
++---------+--------------+
+| Central |   240.000000 |
+| Nokia   | 10883.300000 |
+| Samsung | 21945.250000 |
+| Oneplus | 35990.500000 |
+| Google  | 60999.990000 |
+| Apple   | 68499.990000 |
++---------+--------------+
+6 rows in set (0.04 sec)
+
+
+Having Clause:
+-------------------
+mysql> select brand,sum(price) from product_det group by brand having sum(price)>50000;
++--------+------------+
+| brand  | sum(price) |
++--------+------------+
+| Apple  |  136999.98 |
+| Google |   60999.99 |
++--------+------------+
+2 rows in set (0.04 sec)
+
+mysql> select brand,max(price) from product_det group by brand having max(price)<30000;
++---------+------------+
+| brand   | max(price) |
++---------+------------+
+| Samsung |   25890.50 |
+| Nokia   |   19266.60 |
+| Central |     240.00 |
++---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select brand,max(price) from product_det group by brand having brand = 'Samsung'
+ and max(price)<30000;
+
++---------+------------+
+| brand   | max(price) |
++---------+------------+
+| Samsung |   25890.50 |
++---------+------------+
+1 row in set (0.00 sec)
+
+mysql> select brand,count(price) from product_det group by brand having count(price)>1;
++---------+--------------+
+| brand   | count(price) |
++---------+--------------+
+| Apple   |            2 |
+| Samsung |            2 |
+| Nokia   |            2 |
++---------+--------------+
+3 rows in set (0.00 sec)
+
+
+Constraints
+--------------------
+
+mysql> create table demo_null(id int);
+Query OK, 0 rows affected (1.87 sec)
+
+mysql> insert into demo_null(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10)' at line 1
+mysql> insert into demo_null values(10);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into demo_null values(123);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into demo_null values(1025);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into demo_null values();
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into demo_null values();
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from demo_null;
++------+
+| id   |
++------+
+|   10 |
+|  123 |
+| 1025 |
+| NULL |
+| NULL |
++------+
+5 rows in set (0.00 sec)
+
+mysql> create table demo_ntull(id int not null);
+Query OK, 0 rows affected (0.47 sec)
+
+mysql> desc demo_ntull;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| id    | int  | NO   |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+1 row in set (0.03 sec)
+
+mysql> insert into demo_ntull values(10);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into demo_ntull values(100);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into demo_ntull values();
+ERROR 1364 (HY000): Field 'id' doesn't have a default value
+
+
+
+mysql> create table demo_uniq(id int unique key);
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> desc demo_uniq;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| id    | int  | YES  | UNI | NULL    |       |
++-------+------+------+-----+---------+-------+
+1 row in set (0.04 sec)
+
+mysql> insert into demo_uniq values(10);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into demo_uniq values(100);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into demo_uniq values(10);
+ERROR 1062 (23000): Duplicate entry '10' for key 'demo_uniq.id'
+mysql> insert into demo_uniq values();
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from demo_uniq;
++------+
+| id   |
++------+
+| NULL |
+|   10 |
+|  100 |
++------+
+3 rows in set (0.00 sec)
+
+
+mysql> create table prod_det(pid int primary key,pname varchar(24),qty int,
+price double(10,2));
+Query OK, 0 rows affected, 1 warning (0.22 sec)
+
+mysql> desc prod_det;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| pid   | int          | NO   | PRI | NULL    |       |
+| pname | varchar(24)  | YES  |     | NULL    |       |
+| qty   | int          | YES  |     | NULL    |       |
+| price | double(10,2) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> insert into prod_det values(101,'Pulsar150',120,125000.00);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into prod_det values(102,'KTMRC200',150,155000.00),(103,'RX100',10,86000.00),(105,'Royal Enfield350',50,200000.00),(106,'BMW',15,300000.00);
+Query OK, 4 rows affected (0.07 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into prod_det values(107,'Ninja900',40,100000.00),(108,'CBR',6,250000.00),(109,'Activa',40,80000.00),(110,'Tiger',18,150000.00);
+Query OK, 4 rows affected (0.06 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> insert into prod_det values(101,'Pulsar150',120,125000.00);
+ERROR 1062 (23000): Duplicate entry '101' for key 'prod_det.PRIMARY'
+mysql> insert into prod_det values();
+ERROR 1364 (HY000): Field 'pid' doesn't have a default value
+
+
+mysql> create table cust_det(cid varchar(20) primary key,cname varchar(25),
+location varchar(26),pid int, foreign key(pid) references prod_det(pid));
+
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> desc cust_det;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| cid      | varchar(20) | NO   | PRI | NULL    |       |
+| cname    | varchar(25) | YES  |     | NULL    |       |
+| location | varchar(26) | YES  |     | NULL    |       |
+| pid      | int         | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
+
+mysql> select * prod_det;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'prod_det' at line 1
+mysql> select * from prod_det;
++-----+------------------+------+-----------+
+| pid | pname            | qty  | price     |
++-----+------------------+------+-----------+
+| 101 | Pulsar150        |  120 | 125000.00 |
+| 102 | KTMRC200         |  150 | 155000.00 |
+| 103 | RX100            |   10 |  86000.00 |
+| 105 | Royal Enfield350 |   50 | 200000.00 |
+| 106 | BMW              |   15 | 300000.00 |
+| 107 | Ninja900         |   40 | 100000.00 |
+| 108 | CBR              |    6 | 250000.00 |
+| 109 | Activa           |   40 |  80000.00 |
+| 110 | Tiger            |   18 | 150000.00 |
++-----+------------------+------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> insert into cust_det values('c001','Ram','Erode',108);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into cust_det values('c002','Siva','Karur',103);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into cust_det values('c005','Ashok','Coimbatore',107);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_det values('c007','Gabi','Trichy',110);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_det values('c009','Kamali','Paris',106);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into cust_det values('c010','Hari','Thirupur',105);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from cust_det;
++------+--------+------------+------+
+| cid  | cname  | location   | pid  |
++------+--------+------------+------+
+| c001 | Ram    | Erode      |  108 |
+| c002 | Siva   | Karur      |  103 |
+| c005 | Ashok  | Coimbatore |  107 |
+| c007 | Gabi   | Trichy     |  110 |
+| c009 | Kamali | Paris      |  106 |
+| c010 | Hari   | Thirupur   |  105 |
++------+--------+------------+------+
+6 rows in set (0.00 sec)
+
+mysql> create table bill(bid int primary key auto_increment,pid int,
+cid varchar(20),dob date,total_price double(10,2),
+ foreign key(pid) references prod_det(pid), 
+foreign key(cid) references cust_det(cid));
+
+
+Query OK, 0 rows affected, 1 warning (0.42 sec)
+
+mysql> desc bill;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| bid         | int          | NO   | PRI | NULL    | auto_increment |
+| pid         | int          | YES  | MUL | NULL    |                |
+| cid         | varchar(20)  | YES  | MUL | NULL    |                |
+| dob         | date         | YES  |     | NULL    |                |
+| total_price | double(10,2) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.06 sec)
+
+
+mysql> insert into bill(pid,cid,dob,total_price)values(108,'c001','2023-06-05',260000.00);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from bill;
++-----+------+------+------------+-------------+
+| bid | pid  | cid  | dob        | total_price |
++-----+------+------+------------+-------------+
+|   1 |  108 | c001 | 2023-06-05 |   260000.00 |
++-----+------+------+------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> insert into bill(pid,cid,dob,total_price)values(103,'c002','2023-02-05',88000.00);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from bill;
++-----+------+------+------------+-------------+
+| bid | pid  | cid  | dob        | total_price |
++-----+------+------+------------+-------------+
+|   1 |  108 | c001 | 2023-06-05 |   260000.00 |
+|   2 |  103 | c002 | 2023-02-05 |    88000.00 |
++-----+------+------+------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table bill auto_increment = 2501;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into bill(pid,cid,dob,total_price)values(107,'c005','2023-03-25',108000.00);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from bill;
++------+------+------+------------+-------------+
+| bid  | pid  | cid  | dob        | total_price |
++------+------+------+------------+-------------+
+|    1 |  108 | c001 | 2023-06-05 |   260000.00 |
+|    2 |  103 | c002 | 2023-02-05 |    88000.00 |
+| 2501 |  107 | c005 | 2023-03-25 |   108000.00 |
++------+------+------+------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into bill(pid,cid,dob,total_price)values(110,'c007','2023-06-08',160000.00);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from bill;
++------+------+------+------------+-------------+
+| bid  | pid  | cid  | dob        | total_price |
++------+------+------+------------+-------------+
+|    1 |  108 | c001 | 2023-06-05 |   260000.00 |
+|    2 |  103 | c002 | 2023-02-05 |    88000.00 |
+| 2501 |  107 | c005 | 2023-03-25 |   108000.00 |
+| 2502 |  110 | c007 | 2023-06-08 |   160000.00 |
++------+------+------+------------+-------------+
+4 rows in set (0.00 sec)

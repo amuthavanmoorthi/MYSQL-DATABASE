@@ -1,0 +1,114 @@
+1.STUDENT TABLE
+
+mysql> create table student(name varchar(200),age int,score int);
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| name  | varchar(200) | YES  |     | NULL    |       |
+| age   | int          | YES  |     | NULL    |       |
+| score | int          | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
+
+2. CUSTOMER TABLE
+
+mysql> create table customer(customer_id int,first_name char(200), last_name char(200),date_of_birth date,address text, phone_number int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc customer;
++---------------+-----------+------+-----+---------+-------+
+| Field         | Type      | Null | Key | Default | Extra |
++---------------+-----------+------+-----+---------+-------+
+| customer_id   | int       | YES  |     | NULL    |       |
+| first_name    | char(200) | YES  |     | NULL    |       |
+| last_name     | char(200) | YES  |     | NULL    |       |
+| date_of_birth | date      | YES  |     | NULL    |       |
+| address       | text      | YES  |     | NULL    |       |
+| phone_number  | int       | YES  |     | NULL    |       |
++---------------+-----------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+
+
+3. ORDER-DETAILS TABLE 
+
+mysql> use kg
+Database changed
+mysql> create table order_details;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table order_details(order_id int,customer_id int, order_datetime datetime, shipped_datetime datetime,total_amount float);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc order_details;
++------------------+----------+------+-----+---------+-------+
+| Field            | Type     | Null | Key | Default | Extra |
++------------------+----------+------+-----+---------+-------+
+| order_id         | int      | YES  |     | NULL    |       |
+| customer_id      | int      | YES  |     | NULL    |       |
+| order_datetime   | datetime | YES  |     | NULL    |       |
+| shipped_datetime | datetime | YES  |     | NULL    |       |
+| total_amount     | float    | YES  |     | NULL    |       |
++------------------+----------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+
+4. ADDING 1 ROW TO THE TABLE 
+
+mysql> use kg;
+Database changed
+mysql> create table player(name char(20),age int,score int);
+ERROR 1050 (42S01): Table 'player' already exists
+mysql> create table players(name char(20),age int,score int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into players values('Ram',28,30);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from players;
++------+------+-------+
+| name | age  | score |
++------+------+-------+
+| Ram  |   28 |    30 |
++------+------+-------+
+1 row in set (0.00 sec)
+
+
+
+5. INSERTING VALUES
+
+mysql> create table player(name varchar(250),age int,score int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into player values('suresh',21,70),('Venkat',21,43);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| suresh |   21 |    70 |
+| Venkat |   21 |    43 |
++--------+------+-------+
+2 rows in set (0.00 sec)
+
+
+6. USING WHERE QUERY
+
+mysql> select * from player where name='suresh';
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| suresh |   21 |    70 |
++--------+------+-------+
+1 row in set (0.00 sec)
+
+
+
+

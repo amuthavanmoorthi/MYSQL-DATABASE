@@ -1,0 +1,49 @@
+1. SELECTING PUMA ONLY
+
+mysql> create table AMAZON(name varchar(250), category varchar(200),price int, brand varchar(200), rating float(10,2));
+Query OK, 0 rows affected, 1 warning (0.17 sec)
+
+mysql> insert into AMAZON values('Black Shirt','Clothing',900,'Puma',4.8);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from AMAZON where brand='puma';
++-------------+----------+-------+-------+--------+
+| name        | category | price | brand | rating |
++-------------+----------+-------+-------+--------+
+| Black Shirt | Clothing |   900 | Puma  |   4.80 |
++-------------+----------+-------+-------+--------+
+1 row in set (0.02 sec)
+
+
+
+
+2. SELECTING JEANS ONLY
+
+mysql> Select*from AMAZON where brand like '%Jeans';
+
+
+
+
+3. STARTS WITH BOURBAN
+
+mysql> Select*from AMAZON where brand like 'Bourban%';
+
+
+4. CHIPS ONLY SELECTING
+
+mysql> select*from AMAZON where name in('Chips');
+
+
+5. H AND R BETWEEN UNDERSCORE
+
+mysql> Select*from AMAZON where brand like '%h_r_';
+
+
+6. LESS THAN OR EQUAL TO PRICE SELECTING
+
+mysql> select price from AMAZON where price<=1000;
+
+
+7. ABOVE 4.0 PRODUCTS AS BEST-RATED-PRODUCTS
+
+mysql> select min(4.0) AS Best_RATED_Products from AMAZON;

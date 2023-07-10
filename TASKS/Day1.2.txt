@@ -1,0 +1,159 @@
+1. ADDING NEW PLAYER
+
+mysql> insert into player values('Raj',26,120);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| suresh |   21 |    70 |
+| Venkat |   21 |    43 |
+| Raj    |   26 |   120 |
++--------+------+-------+
+3 rows in set (0.00 sec)
+
+
+2. ADDING THREE VALUES IN PLAYER TABLE 
+
+
+mysql> insert into player values('Ram',28,125),('Cheran',25,173),('Ravan',20,152);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| suresh |   21 |    70 |
+| Venkat |   21 |    43 |
+| Raj    |   26 |   120 |
+| Ram    |   28 |   125 |
+| Cheran |   25 |   173 |
+| Ravan  |   20 |   152 |
++--------+------+-------+
+6 rows in set (0.00 sec)
+
+
+3. EXPECTED OUTPUT
+
+mysql> create table player(name varchar(20),age int,score int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into player values('Ram',24,10),('Suresh',21,9);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Ram    |   24 |    10 |
+| Suresh |   21 |     9 |
++--------+------+-------+
+2 rows in set (0.00 sec)
+
+
+4. UPDATING SHYAM AGE
+
+mysql> update player set age=30 where name='Shyam';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Ram    |   24 |    10 |
+| Suresh |   21 |     9 |
+| Shyam  |   30 |    20 |
++--------+------+-------+
+3 rows in set (0.00 sec)
+
+
+5.DELETE DAVID DETAILS
+
+mysql> insert into player values('David',20,20);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Ram    |   24 |    10 |
+| Suresh |   21 |     9 |
+| Shyam  |   30 |    20 |
+| David  |   20 |    20 |
++--------+------+-------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> delete from player where name='David';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from player;
++--------+------+-------+
+| name   | age  | score |
++--------+------+-------+
+| Ram    |   24 |    10 |
+| Suresh |   21 |     9 |
+| Shyam  |   30 |    20 |
++--------+------+-------+
+3 rows in set (0.00 sec)
+
+
+
+
+6. ADDING STRIKE RATE
+
+mysql> alter table player add strike_rate float(10,2);
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> desc player;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| name        | varchar(20) | YES  |     | NULL    |       |
+| age         | int         | YES  |     | NULL    |       |
+| score       | int         | YES  |     | NULL    |       |
+| strike_rate | float(10,2) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+7. GET NAME AND AGE ONLY
+
+mysql> select name,age from player;
++--------+------+
+| name   | age  |
++--------+------+
+| Ram    |   24 |
+| Suresh |   21 |
+| Shyam  |   30 |
++--------+------+
+3 rows in set (0.00 sec)
+
+
+
+8. RENAME THE NAME TO FULL-NAME
+
+mysql> alter table player rename column name to FUll_NAME;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from player;
++-----------+------+-------+-------------+
+| FUll_NAME | age  | score | strike_rate |
++-----------+------+-------+-------------+
+| Ram       |   24 |    10 |        NULL |
+| Suresh    |   21 |     9 |        NULL |
+| Shyam     |   30 |    20 |        NULL |
++-----------+------+-------+-------------+
+3 rows in set (0.00 sec)
+
+
+
+9. DELETED PLAYER TABLE
+
+mysql> drop table player;
+Query OK, 0 rows affected (0.02 sec)
