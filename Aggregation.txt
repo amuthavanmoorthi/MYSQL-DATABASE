@@ -1,0 +1,150 @@
+11. Display the list of employees who have joined the company before 30th june 80 or after 31 st dec 80.
+
+mysql> select ename, doj from emp_det where doj>'1980-12-31';
+
+
+
+
+12.Display the list of employees
+
+mysql> select ename AS users from emp_det;
+
+
+
+
+13.Display the names of employees working in department number 10 or 20 and working as clerks , salesman or analyst
+
+mysql> select department_number, ename, designation from emp_det where (department_number='10' or department_number='20') and designation='Clerk';
+
+mysql> select department_number, ename, designation from emp_det where (department_number='10' or department_number='20') and (designation='Salesman' or designation='Analyst');
+
+
+
+
+
+14.Display the names of employees whose name starts with alphabet “S”
+
+mysql> select ename from emp_det where ename like "S%";
+
+
+
+
+
+15.Display employee name from employees whose name ends with alphabet N
+
+mysql> select ename from emp_det where ename like "%n";
+
+
+
+
+
+16.Display the names of employees whose names have second alphabet A in their names
+
+mysql> select ename from emp_det where ename like "_a__%";
+
+
+
+
+17.Display the names of all tables from the current user
+
+mysql> select ename from emp_det;
+
+
+
+
+18.Display the unique jobs in emp table
+
+mysql> select distinct designation from emp_det;
+
+
+
+
+
+19.Display the names of employees who are not working as SALESMAN or CLERK or ANALYST
+
+mysql> select ename, designation from emp_det where not (designation='Clerk' or designation='Analyst' or designation='Salesman');
+
+
+
+
+
+20.Display the names and salary of employees in descending order of salary.
+
+mysql> select ename, salary from emp_det order by salary desc;
+
+
+
+
+21.Display the names,job,salary and increased by 15% labbel the column new salary.
+
+mysql> update emp_det set Salary= Salary+(Salary*15/100);
+Query OK, 10 rows affected (0.06 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select ename, Salary from emp_det;
+
+
+
+
+22.Display the name of the employees whose name contains 'LL'.
+
+mysql> select ename from emp_det where ename like '%LL%';
+
+
+
+
+
+23..Display the name of the employees whose name contain 'A' as 4th character.
+
+mysql> select ename from emp_det where ename like "A____%";
+
+
+
+
+
+25.Display the name,job and salary of the employees whose salary is not in the range of 2000 and 3000.
+
+mysql> select ename, designation, Salary from emp_det where Salary not between 2000 and 3000;
+
+
+
+
+
+26. Diplay the empno,job and hiredate of the employees who don't have MANAGER.
+
+mysql> select empno, designation, doj from emp_det where designation<>'Manager';
+
+
+
+
+27. Display the name and hiredate of the employees who have joined in the year '81'.
+
+mysql> select ename, doj from emp_det where doj like "1981______%";
+
+
+
+
+28. Display the name and hiredate of the employees first half of year in '81'.
+
+mysql> select ename, doj from emp_det where doj between '1981-01-01' and '1981-06-30';
+
+
+
+
+29. Display the following output
+
+ename earns sal but wants three times salary
+
+Example : KING earns 5000 but wants 15000
+
+mysql> select ename, Salary, Salary*3 as three_times from emp_det where ename='gabriel';
+
+
+
+
+30. Display the details of the employees who have joined in the month of 'MAY'
+
+mysql> select ename, doj from emp_det where doj between '1981-05-01' and '1981-05-31';
+
+
+
