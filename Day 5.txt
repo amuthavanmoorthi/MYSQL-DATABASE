@@ -1,0 +1,488 @@
+Day 5
+-----------------
+
+Sub Query
+------------------
+
+
+mysql> select cid,cname,location,pid from cust_det where pid in ( select pid from bill);
++------+-------+------------+------+
+| cid  | cname | location   | pid  |
++------+-------+------------+------+
+| c002 | Siva  | Karur      |  103 |
+| c005 | Ashok | Coimbatore |  107 |
+| c001 | Ram   | Erode      |  108 |
+| c007 | Gabi  | Trichy     |  110 |
++------+-------+------------+------+
+4 rows in set (0.16 sec)
+
+mysql> select cid,cname,location,pid from cust_det where pid in
+ ( select pid from bill where total_price>100000);
+
++------+-------+------------+------+
+| cid  | cname | location   | pid  |
++------+-------+------------+------+
+| c001 | Ram   | Erode      |  108 |
+| c005 | Ashok | Coimbatore |  107 |
+| c007 | Gabi  | Trichy     |  110 |
++------+-------+------------+------+
+3 rows in set (0.27 sec)
+
+mysql> select max(total_price) from bill;
++------------------+
+| max(total_price) |
++------------------+
+|        260000.00 |
++------------------+
+1 row in set (0.13 sec)
+
+mysql> select pid,cid,dob,total_price from bill 
+where total_price = (select max(total_price) from bill);
+
++------+------+------------+-------------+
+| pid  | cid  | dob        | total_price |
++------+------+------------+-------------+
+|  108 | c001 | 2023-06-05 |   260000.00 |
++------+------+------------+-------------+
+1 row in set (0.11 sec)
+
+
+TCL
+-----------------
+
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> update emp_det set salary = 23000.00 where empid = 'web21';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp_det;
++-------+-------------+-------------+----------+
+| empid | ename       | designation | salary   |
++-------+-------------+-------------+----------+
+| FS01  | Kameshwar   | Developer   | 28000.00 |
+| FS02  | Amuthavanan | Developer   | 28000.00 |
+| FS03  | Vijay       | Developer   | 28000.00 |
+| FS04  | Jerena      | Developer   | 28000.00 |
+| Web01 | Hariharan   | Designer    | 21000.00 |
+| Web12 | Ashok       | Designer    | 21000.00 |
+| Web21 | Chakra      | Designer    | 23000.00 |
++-------+-------------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from emp_det;
++-------+-------------+-------------+----------+
+| empid | ename       | designation | salary   |
++-------+-------------+-------------+----------+
+| FS01  | Kameshwar   | Developer   | 28000.00 |
+| FS02  | Amuthavanan | Developer   | 28000.00 |
+| FS03  | Vijay       | Developer   | 28000.00 |
+| FS04  | Jerena      | Developer   | 28000.00 |
+| Web01 | Hariharan   | Designer    | 21000.00 |
+| Web12 | Ashok       | Designer    | 21000.00 |
+| Web21 | Chakra      | Designer    | 21000.00 |
++-------+-------------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> delete from emp_det;
+Query OK, 7 rows affected (0.02 sec)
+
+mysql> select * from emp_det;
+Empty set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp_det;
++-------+-------------+-------------+----------+
+| empid | ename       | designation | salary   |
++-------+-------------+-------------+----------+
+| FS01  | Kameshwar   | Developer   | 28000.00 |
+| FS02  | Amuthavanan | Developer   | 28000.00 |
+| FS03  | Vijay       | Developer   | 28000.00 |
+| FS04  | Jerena      | Developer   | 28000.00 |
+| Web01 | Hariharan   | Designer    | 21000.00 |
+| Web12 | Ashok       | Designer    | 21000.00 |
+| Web21 | Chakra      | Designer    | 21000.00 |
++-------+-------------+-------------+----------+
+7 rows in set (0.04 sec)
+
+mysql> update emp_det set salary = 23000.00 where empid = 'web21';
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> commit;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp_det;
++-------+-------------+-------------+----------+
+| empid | ename       | designation | salary   |
++-------+-------------+-------------+----------+
+| FS01  | Kameshwar   | Developer   | 28000.00 |
+| FS02  | Amuthavanan | Developer   | 28000.00 |
+| FS03  | Vijay       | Developer   | 28000.00 |
+| FS04  | Jerena      | Developer   | 28000.00 |
+| Web01 | Hariharan   | Designer    | 21000.00 |
+| Web12 | Ashok       | Designer    | 21000.00 |
+| Web21 | Chakra      | Designer    | 23000.00 |
++-------+-------------+-------------+----------+
+7 rows in set (0.00 sec)
+
+
+Views
+--------------
+mysql> select * from emp_det;
++-------+-------------+-------------+----------+
+| empid | ename       | designation | salary   |
++-------+-------------+-------------+----------+
+| FS01  | Kameshwar   | Developer   | 28000.00 |
+| FS02  | Amuthavanan | Developer   | 28000.00 |
+| FS03  | Vijay       | Developer   | 28000.00 |
+| FS04  | Jerena      | Developer   | 28000.00 |
+| Web01 | Hariharan   | Designer    | 21000.00 |
+| Web12 | Ashok       | Designer    | 21000.00 |
+| Web21 | Chakra      | Designer    | 23000.00 |
++-------+-------------+-------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> create view v1 as select ename,designation from emp_det;
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> desc v1;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ename       | varchar(25) | YES  |     | NULL    |       |
+| designation | varchar(20) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+2 rows in set (0.48 sec)
+
+mysql> select * from v1;
++-------------+-------------+
+| ename       | designation |
++-------------+-------------+
+| Kameshwar   | Developer   |
+| Amuthavanan | Developer   |
+| Vijay       | Developer   |
+| Jerena      | Developer   |
+| Hariharan   | Designer    |
+| Ashok       | Designer    |
+| Chakra      | Designer    |
++-------------+-------------+
+7 rows in set (0.09 sec)
+
+mysql> insert into emp_det values('Tester25','Diwakar','Tester',22500.00);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from v1;
++-------------+-------------+
+| ename       | designation |
++-------------+-------------+
+| Kameshwar   | Developer   |
+| Amuthavanan | Developer   |
+| Vijay       | Developer   |
+| Jerena      | Developer   |
+| Diwakar     | Tester      |
+| Hariharan   | Designer    |
+| Ashok       | Designer    |
+| Chakra      | Designer    |
++-------------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> create view max_price as select cid,cname,location,pid from cust_det 
+where pid in ( select pid from bill where total_price>100000);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from max_price;
++------+-------+------------+------+
+| cid  | cname | location   | pid  |
++------+-------+------------+------+
+| c001 | Ram   | Erode      |  108 |
+| c005 | Ashok | Coimbatore |  107 |
+| c007 | Gabi  | Trichy     |  110 |
++------+-------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> drop view v1;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> select * from emp_det;
++----------+-------------+-------------+----------+
+| empid    | ename       | designation | salary   |
++----------+-------------+-------------+----------+
+| FS01     | Kameshwar   | Developer   | 28000.00 |
+| FS02     | Amuthavanan | Developer   | 28000.00 |
+| FS03     | Vijay       | Developer   | 28000.00 |
+| FS04     | Jerena      | Developer   | 28000.00 |
+| Tester25 | Diwakar     | Tester      | 22500.00 |
+| Web01    | Hariharan   | Designer    | 21000.00 |
+| Web12    | Ashok       | Designer    | 21000.00 |
+| Web21    | Chakra      | Designer    | 23000.00 |
++----------+-------------+-------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> replace into emp_det set empid='Tester25',ename='Diwakar',
+designation='QualityChecker',salary=30999.50;
+Query OK, 2 rows affected (0.03 sec)
+
+mysql> select * from emp_det;
++----------+-------------+----------------+----------+
+| empid    | ename       | designation    | salary   |
++----------+-------------+----------------+----------+
+| FS01     | Kameshwar   | Developer      | 28000.00 |
+| FS02     | Amuthavanan | Developer      | 28000.00 |
+| FS03     | Vijay       | Developer      | 28000.00 |
+| FS04     | Jerena      | Developer      | 28000.00 |
+| Tester25 | Diwakar     | QualityChecker | 30999.50 |
+| Web01    | Hariharan   | Designer       | 21000.00 |
+| Web12    | Ashok       | Designer       | 21000.00 |
+| Web21    | Chakra      | Designer       | 23000.00 |
++----------+-------------+----------------+----------+
+8 rows in set (0.00 sec)
+
+mysql> replace into emp_det set empid='Tester26',ename='Bharathi',
+designation='Tester',salary=20999.50;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp_det;
++----------+-------------+----------------+----------+
+| empid    | ename       | designation    | salary   |
++----------+-------------+----------------+----------+
+| FS01     | Kameshwar   | Developer      | 28000.00 |
+| FS02     | Amuthavanan | Developer      | 28000.00 |
+| FS03     | Vijay       | Developer      | 28000.00 |
+| FS04     | Jerena      | Developer      | 28000.00 |
+| Tester25 | Diwakar     | QualityChecker | 30999.50 |
+| Tester26 | Bharathi    | Tester         | 20999.50 |
+| Web01    | Hariharan   | Designer       | 21000.00 |
+| Web12    | Ashok       | Designer       | 21000.00 |
+| Web21    | Chakra      | Designer       | 23000.00 |
++----------+-------------+----------------+----------+
+9 rows in set (0.00 sec)
+
+
+Index
+--------------------
+mysql> select * from emp_det;
++----------+-------------+----------------+----------+
+| empid    | ename       | designation    | salary   |
++----------+-------------+----------------+----------+
+| FS01     | Kameshwar   | Developer      | 28000.00 |
+| FS02     | Amuthavanan | Developer      | 28000.00 |
+| FS03     | Vijay       | Developer      | 28000.00 |
+| FS04     | Jerena      | Developer      | 28000.00 |
+| FS05     | Surya       | Developer      | 32999.50 |
+| Tester25 | Diwakar     | QualityChecker | 30999.50 |
+| Tester26 | Bharathi    | Tester         | 20999.50 |
+| Web01    | Hariharan   | Designer       | 21000.00 |
+| Web12    | Ashok       | Designer       | 21000.00 |
+| Web21    | Chakra      | Designer       | 23000.00 |
++----------+-------------+----------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> select empid,ename,salary from emp_det where designation = "developer";
++-------+-------------+----------+
+| empid | ename       | salary   |
++-------+-------------+----------+
+| FS01  | Kameshwar   | 28000.00 |
+| FS02  | Amuthavanan | 28000.00 |
+| FS03  | Vijay       | 28000.00 |
+| FS04  | Jerena      | 28000.00 |
+| FS05  | Surya       | 32999.50 |
++-------+-------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> explain select empid,ename,salary from emp_det where designation = "developer";
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table   | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | emp_det | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   10 |    10.00 | Using where |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.05 sec)
+
+mysql> create index index1 on emp_det(designation);
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> explain select empid,ename,salary from emp_det where designation = "developer";
++----+-------------+---------+------------+------+---------------+--------+---------+-------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys | key    | key_len | ref   | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------+--------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | emp_det | NULL       | ref  | index1        | index1 | 83      | const |    5 |   100.00 | NULL  |
++----+-------------+---------+------------+------+---------------+--------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.03 sec)
+
+mysql> drop index index1 on emp_det;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 
+
+DCL
+--------------
+
+mysql> create user 'batch17'@'localhost' identified by 'batch17';
+Query OK, 0 rows affected (3.14 sec)
+
+mysql> show grants for batch17;
+ERROR 1141 (42000): There is no such grant defined for user 'batch17' on host '%'
+mysql> create user 'cbebatch17'@'localhost' identified by 'cbebatch17';
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| abc              |
+| batch17          |
+| cbebatch17       |
+| kgm              |
+| kgmblr           |
+| kgmchennai       |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| root             |
+| student1         |
++------------------+
+11 rows in set (0.06 sec)
+
+mysql> select current_user();
++----------------+
+| current_user() |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> set password for 'batch17'@'localhost' = 'kgm';
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> grant select on emp_det to 'batch17'@'localhost';
+Query OK, 0 rows affected (0.23 sec)
+
+Microsoft Windows [Version 10.0.19045.3086]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user>cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin>mysql -u batch17 -p
+Enter password: ***
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.32 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use batch17;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_batch17 |
++-------------------+
+| emp_det           |
++-------------------+
+1 row in set (0.56 sec)
+
+mysql> select * from emp_det;
++----------+-------------+----------------+----------+
+| empid    | ename       | designation    | salary   |
++----------+-------------+----------------+----------+
+| FS01     | Kameshwar   | Developer      | 28000.00 |
+| FS02     | Amuthavanan | Developer      | 28000.00 |
+| FS03     | Vijay       | Developer      | 28000.00 |
+| FS04     | Jerena      | Developer      | 28000.00 |
+| FS05     | Surya       | Developer      | 32999.50 |
+| Tester25 | Diwakar     | QualityChecker | 30999.50 |
+| Tester26 | Bharathi    | Tester         | 20999.50 |
+| Web01    | Hariharan   | Designer       | 21000.00 |
+| Web12    | Ashok       | Designer       | 21000.00 |
+| Web21    | Chakra      | Designer       | 23000.00 |
++----------+-------------+----------------+----------+
+10 rows in set (0.03 sec)
+
+mysql> insert into emp_det values('Web13','Kumar','Designer',18000.00);
+ERROR 1142 (42000): INSERT command denied to user 'batch17'@'localhost' for table 'emp_det'
+mysql>
+
+mysql> grant insert on emp_det to 'batch17'@'localhost';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> show grants for 'batch17'@'localhost';
++----------------------------------------------------------------------+
+| Grants for batch17@localhost                                         |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `batch17`@`localhost`                          |
+| GRANT SELECT, INSERT ON `batch17`.`emp_det` TO `batch17`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp_det values('Web13','Kumar','Designer',18000.00);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from emp_det;
++----------+-------------+----------------+----------+
+| empid    | ename       | designation    | salary   |
++----------+-------------+----------------+----------+
+| FS01     | Kameshwar   | Developer      | 28000.00 |
+| FS02     | Amuthavanan | Developer      | 28000.00 |
+| FS03     | Vijay       | Developer      | 28000.00 |
+| FS04     | Jerena      | Developer      | 28000.00 |
+| FS05     | Surya       | Developer      | 32999.50 |
+| Tester25 | Diwakar     | QualityChecker | 30999.50 |
+| Tester26 | Bharathi    | Tester         | 20999.50 |
+| Web01    | Hariharan   | Designer       | 21000.00 |
+| Web12    | Ashok       | Designer       | 21000.00 |
+| Web13    | Kumar       | Designer       | 18000.00 |
+| Web21    | Chakra      | Designer       | 23000.00 |
++----------+-------------+----------------+----------+
+11 rows in set (0.00 sec)
+
+mysql> show grants for 'batch17'@'localhost';
++------------------------------------------------------------------------------+
+| Grants for batch17@localhost                                                 |
++------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `batch17`@`localhost`                                  |
+| GRANT SELECT, INSERT, DELETE ON `batch17`.`emp_det` TO `batch17`@`localhost` |
++------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke insert on emp_det from 'batch17'@'localhost';
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into emp_det values('Web13','Kumar','Designer',18000.00);
+ERROR 1142 (42000): INSERT command denied to user 'batch17'@'localhost' for table 'emp_det'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
