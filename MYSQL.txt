@@ -1,0 +1,191 @@
+Q1 . Create a table with suitable constraints and fill the table with following dataset.
+
+mysql> Create table Teachers(id int primary key,  Name VARCHAR(50),  Department varchar(50),  DateOfAdmission DATE,  Salary int,  Gender char(1));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc Teachers;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| ID              | int         | NO   | PRI | NULL    |       |
+| Name            | varchar(50) | YES  |     | NULL    |       |
+| Department      | varchar(50) | YES  |     | NULL    |       |
+| DateOfAdmission | date        | YES  |     | NULL    |       |
+| Salary          | int         | YES  |     | NULL    |       |
+| Gender          | char(10)    | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+
+
+
+Q2. Write an SQL Query to select all the information of teachers in computer department.
+
+mysql> select*from teacher;
++----+------------+------------+-----------------+--------+--------+
+| id | Name       | Department | DateOfAdmission | Salary | Gender |
++----+------------+------------+-----------------+--------+--------+
+|  1 | aravind    | Computer   | 2020-05-15      |  15000 | M      |
+|  2 | elavarasan | History    | 2018-08-22      |  13000 | F      |
+|  3 | Michael    | Computer   | 2019-02-10      |  18000 | M      |
+|  4 | prasanth   | History    | 2021-01-05      |  11000 | F      |
+|  5 | mitun      | Computer   | 2022-03-12      |  16000 | M      |
+|  6 | amudhavan  | Computer   | 2022-06-20      |   9000 | F      |
+|  7 | sailesh    | History    | 2023-04-30      |  12000 | M      |
++----+------------+------------+-----------------+--------+--------+
+7 rows in set (0.00 sec)
+
+mysql> select*from Teacher where Department = 'Computer';
++----+-----------+------------+-----------------+--------+--------+
+| id | Name      | Department | DateOfAdmission | Salary | Gender |
++----+-----------+------------+-----------------+--------+--------+
+|  1 | aravind   | Computer   | 2020-05-15      |  15000 | M      |
+|  3 | Michael   | Computer   | 2019-02-10      |  18000 | M      |
+|  5 | mitun     | Computer   | 2022-03-12      |  16000 | M      |
+|  6 | amudhavan | Computer   | 2022-06-20      |   9000 | F      |
++----+-----------+------------+-----------------+--------+--------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+Q3. Write a query to list the name of female teachers in History department.
+
+
+mysql> select Name FROM Teacher WHERE Department = 'History' AND Gender = 'F';
++------------+
+| Name       |
++------------+
+| elavarasan |
+| prasanth   |
++------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+Q4. list all names of teachers with date of admission in ascending order
+
+
+mysql> select Name, DateOfAdmission from Teacher order by DateOfAdmission ASC;
++------------+-----------------+
+| Name       | DateOfAdmission |
++------------+-----------------+
+| elavarasan | 2018-08-22      |
+| Michael    | 2019-02-10      |
+| aravind    | 2020-05-15      |
+| prasanth   | 2021-01-05      |
+| mitun      | 2022-03-12      |
+| amudhavan  | 2022-06-20      |
+| sailesh    | 2023-04-30      |
++------------+-----------------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+Q5. display Teacher’s name, Department, and Salary of male teacher.
+
+
+mysql> select Name, Department, Salary from Teacher where Gender = 'M';
++---------+------------+--------+
+| Name    | Department | Salary |
++---------+------------+--------+
+| aravind | Computer   |  15000 |
+| Michael | Computer   |  18000 |
+| mitun   | Computer   |  16000 |
+| sailesh | History    |  12000 |
++---------+------------+--------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+Q6. To count the number of items whose salary is less than 10,000
+
+mysql>select count(*) AS CountOfLowSalaries from Teacher where Salary < 10000;
++--------------------+
+| CountOfLowSalaries |
++--------------------+
+|                  1 |
++--------------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+Q7.  To insert a new record in the Teacher table with the following data: 8,”Mersha”,”computer”,{1/1/2000},12000,”m”
+
+mysql> insert into Teacher values(8, 'kamali', 'Computer', '2000-01-01', 12000, 'M');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from teacher;
++----+------------+------------+-----------------+--------+--------+
+| id | Name       | Department | DateOfAdmission | Salary | Gender |
++----+------------+------------+-----------------+--------+--------+
+|  1 | aravind    | Computer   | 2020-05-15      |  15000 | M      |
+|  2 | elavarasan | History    | 2018-08-22      |  13000 | F      |
+|  3 | Michael    | Computer   | 2019-02-10      |  18000 | M      |
+|  4 | prasanth   | History    | 2021-01-05      |  11000 | F      |
+|  5 | mitun      | Computer   | 2022-03-12      |  16000 | M      |
+|  6 | amudhavan  | Computer   | 2022-06-20      |   9000 | F      |
+|  7 | sailesh    | History    | 2023-04-30      |  12000 | M      |
+|  8 | kamali     | Computer   | 2000-01-01      |  12000 | M      |
++----+------------+------------+-----------------+--------+--------+
+8 rows in set (0.00 sec)
+
+
+
+
+
+
+Q8. List the teacher detail who is getting the minimum salary.
+
+
+mysql> select * from Teacher where Salary = (select min(salary)from Teacher);
++----+-----------+------------+-----------------+--------+--------+
+| id | Name      | Department | DateOfAdmission | Salary | Gender |
++----+-----------+------------+-----------------+--------+--------+
+|  6 | amudhavan | Computer   | 2022-06-20      |   9000 | F      |
++----+-----------+------------+-----------------+--------+--------+
+1 row in set (0.01 sec)
+
+
+
+
+
+Q9.  List the teacher detail who is getting the second minimum salary.
+
+mysql> select * from Teacher where Salary = (select min(salary) from Teacher where Salary NOT IN (select min(Salary)from Teacher));
++----+----------+------------+-----------------+--------+--------+
+| id | Name     | Department | DateOfAdmission | Salary | Gender |
++----+----------+------------+-----------------+--------+--------+
+|  4 | prasanth | History    | 2021-01-05      |  11000 | F      |
++----+----------+------------+-----------------+--------+--------+
+1 row in set (0.01 sec)
+
+
+
+
+
+Q10. List down the average salary of the teachers belongs to History department  
+
+
+mysql> select avg(salary) as Average_salary FROM Teacher where department = 'history';
++---------------+
+| Average_salary |
++---------------+
+|    12000.0000 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql>
+
